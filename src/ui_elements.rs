@@ -1,6 +1,8 @@
+// use colored::*;
+
 
 pub fn test_func(text: String){
-    println!("\033[44;33m{}\033[m", text)
+    println!("\x1B[7m{}", text)
 }
 
 //pub fn highlight_element(element: str){
