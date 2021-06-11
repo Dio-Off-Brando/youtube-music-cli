@@ -1,5 +1,5 @@
-
+mod ui_elements;
 
 fn main() {
-    println!("Hello, world!");
+    ui_elements::test_func("test".to_string())
 }
