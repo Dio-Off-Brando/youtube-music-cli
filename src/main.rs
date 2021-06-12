@@ -1,7 +1,7 @@
 mod ui_elements;
-mod youtube;
+mod youtube_data;
 
 
 fn main() {
-    ui_elements::test_func("test".to_string())
+    ui_elements::highlight_text("test".to_string())
 }
