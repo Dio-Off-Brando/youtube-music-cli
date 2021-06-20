@@ -1,19 +1,12 @@
-use std::array;
-
-use reqwest::Client;
 use json;
-
+use isahc;
+use isahc::prelude::*;
 //gonna hard code the youtube token just for testing, ill remove it and replace it with the token
 //found in .config/youtube-music-cli/config.json
-//my api key -> AIzaSyBQiSl_pVzCUsNoxhhiEgNADqE-L-_Ta84
-
-
+//my api key -> AIzaSyDqdQDsS4gRbDI_oxIzdF1zEH7-hwoBgbA
+// its probably 
 //again just for testing purposes, probably gonna remove it on deployment
-fn api_key() -> String{
-
-
-    "AIzaSyBQiSl_pVzCUsNoxhhiEgNADqE-L-_Ta84".to_string()
-}
+static api_key:&str ="AIzaSyDqdQDsS4gRbDI_oxIzdF1zEH7-hwoBgbA";
 
 
 struct youtube_video {
@@ -28,18 +21,28 @@ struct youtube_video {
 // iterate for each json object in json array push youtube_video into vector with name and url
 //
 
-fn youtube_data_search_req(query: &str) -> Vec<youtube_video> {
-  
-    let mut url: String = "https://www.googleapis.com/youtube/v3/search?part=".to_owned();
+fn youtube_data_search_req(query: &str) -> Result<String, isahc::Error> {
+    //make query url-friendly
+    let query:String = String::from("q=")+query;
+    let mut query:String = query.replace(" ", "%20");
+
+    let mut url: String = "https://www.googleapis.com/youtube/v3/search?part=snippet&".to_owned(); 
+    let mut video_list: Vec<youtube_video> = vec![];
     
-    let access_token: &str = "";    
+    let url:String = String::from(url.as_str()) + query.as_str() + "&key=AIzaSyDqdQDsS4gRbDI_oxIzdF1zEH7-hwoBgbA";
     
 
+    //return the result
+    let mut result = isahc::get(url)?.text()?;
+
+    Ok(result)
+   
+    // finally -_-
 }
 
 
-pub fn youtube_search(query: String) {
-   
-    
+pub fn youtube_search_json_parser(query: String) Vec<youtube_video> {
+   //println!("placeholder")
+        
 
 }
